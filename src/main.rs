@@ -64,7 +64,7 @@ fn main() {
     const SCREEN_HEIGHT : u64 = 1000;
     let (mut rl, thread) = raylib::init()
         .size(SCREEN_WIDTH as i32, SCREEN_HEIGHT as i32)
-        .title("fizix")
+        .title("Particles")
         .vsync()
         .build();
 
@@ -317,6 +317,7 @@ fn main() {
                 } else {
                     DrawCircle(nodes[i].pos.x as i32, nodes[i].pos.y as i32, nodes[i].radius as f32, Color {r: 255, g: (255. * (nodes[i].mass / 11.)) as u8, b: 0, a: 255}.into());
                 }
+                //if you want to add the circles back in, uncomment the use for DrawCicleLines on line 3
                 //DrawCircleLines(nodes[i].pos.x as i32, nodes[i].pos.y as i32, nodes[i].influence_radius as f32, Color::RED.into());
             }
         }
