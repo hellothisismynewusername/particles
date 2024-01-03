@@ -1,6 +1,6 @@
 use raylib::prelude::*;
 use raylib::ffi::DrawCircle;
-use raylib::ffi::DrawCircleLines;
+//use raylib::ffi::DrawCircleLines;
 use raylib::ffi::MouseButton::MOUSE_LEFT_BUTTON;
 
 #[derive(Clone)]
@@ -70,11 +70,11 @@ fn main() {
 
     let mut mouse_has_target = false;
     let mut mouse_target : usize = 0;
-    let mut time_step = 0.005;
-    let mut update_vels = true;
+    let time_step = 0.005;
+    let update_vels = true;
     let mut nodes = Vec::new();
-    let mut use_speed_cap = true;
-    let zero_zero = Vector2 {
+    let use_speed_cap = true;
+    let _zero_zero = Vector2 {
         x: 0.0,
         y: 0.0
     };
@@ -207,10 +207,12 @@ fn main() {
                         let y_dist = oldnodes[i].pos.y - oldnodes[j].pos.y;
                         let dist = ((x_dist * x_dist) + (y_dist * y_dist)).sqrt();
                         if dist <= oldnodes[i].radius + oldnodes[j].radius {
+                            
                             let vel1 = ((oldnodes[i].vel.x * oldnodes[i].vel.x) + (oldnodes[i].vel.y * oldnodes[i].vel.y)).sqrt();
                             let vel2 = ((oldnodes[j].vel.x * oldnodes[j].vel.x) + (oldnodes[j].vel.y * oldnodes[j].vel.y)).sqrt();
-                            let angle = (y_dist * -1.).atan2(x_dist);
+
                             /*
+                            let angle = (y_dist * -1.).atan2(x_dist);
                             let v1x_final = (oldnodes[j].mass * oldnodes[i].vel.y - oldnodes[i].mass * oldvel * angle.tan()) / (oldnodes[i].mass * angle.tan());
                             let v1y_final = angle.tan() * v1x_final;
                             let v2x_final = (oldnodes[i].mass * oldnodes[i].vel.x - oldnodes[j].mass * oldnodes[j].vel.x) / oldnodes[j].mass;
@@ -238,8 +240,6 @@ fn main() {
                         let dist = ((x_dist * x_dist) + (y_dist * y_dist)).sqrt();
                         if dist <= oldnodes[i].influence_radius + oldnodes[j].radius {
                             if oldnodes[i].ball_type == 0 && oldnodes[j].ball_type == 1 {
-                                let vel1 = ((oldnodes[i].vel.x * oldnodes[i].vel.x) + (oldnodes[i].vel.y * oldnodes[i].vel.y)).sqrt();
-                                let vel2 = ((oldnodes[j].vel.x * oldnodes[j].vel.x) + (oldnodes[j].vel.y * oldnodes[j].vel.y)).sqrt();
                                 let angle = (y_dist * -1.).atan2(x_dist) + PI;
 
                                 nodes[i].forces.push(Force {
@@ -248,8 +248,6 @@ fn main() {
                                 });
                             }
                             if oldnodes[i].ball_type == 1 && oldnodes[j].ball_type == 0 {
-                                let vel1 = ((oldnodes[i].vel.x * oldnodes[i].vel.x) + (oldnodes[i].vel.y * oldnodes[i].vel.y)).sqrt();
-                                let vel2 = ((oldnodes[j].vel.x * oldnodes[j].vel.x) + (oldnodes[j].vel.y * oldnodes[j].vel.y)).sqrt();
                                 let angle = (y_dist * -1.).atan2(x_dist) + PI;
 
                                 nodes[i].forces.push(Force {
@@ -258,8 +256,6 @@ fn main() {
                                 });
                             }
                             if oldnodes[i].ball_type == 0 && oldnodes[j].ball_type == 0 {
-                                let vel1 = ((oldnodes[i].vel.x * oldnodes[i].vel.x) + (oldnodes[i].vel.y * oldnodes[i].vel.y)).sqrt();
-                                let vel2 = ((oldnodes[j].vel.x * oldnodes[j].vel.x) + (oldnodes[j].vel.y * oldnodes[j].vel.y)).sqrt();
                                 let angle = (y_dist * -1.).atan2(x_dist);
 
                                 nodes[i].forces.push(Force {
@@ -268,8 +264,6 @@ fn main() {
                                 });
                             }
                             if oldnodes[i].ball_type == 1 && oldnodes[j].ball_type == 1 {
-                                let vel1 = ((oldnodes[i].vel.x * oldnodes[i].vel.x) + (oldnodes[i].vel.y * oldnodes[i].vel.y)).sqrt();
-                                let vel2 = ((oldnodes[j].vel.x * oldnodes[j].vel.x) + (oldnodes[j].vel.y * oldnodes[j].vel.y)).sqrt();
                                 let angle = (y_dist * -1.).atan2(x_dist);
 
                                 nodes[i].forces.push(Force {
